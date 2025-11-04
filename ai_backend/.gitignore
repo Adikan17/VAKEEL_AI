@@ -1,0 +1,50 @@
+# --- Environment and virtual envs ---
+venv/
+.env
+*.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# --- System / IDE files ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Model + index data ---
+# Large or auto-generated files from FAISS, BM25, Chroma, or embedding pipelines
+*.bin
+*.pkl
+*.pklz
+*.jsonl
+*.npy
+*.npz
+*.pytorch
+*.pt
+*.h5
+*.onnx
+
+# FAISS / Chroma / BM25 outputs
+faiss_index.*
+chroma_db/
+bm25_index.pkl
+chunk_ids.json
+processed_legal_data.json
+
+# --- Docker / cache ---
+__pycache__/
+*.egg-info/
+build/
+dist/
+.cache/
+.pytest_cache/
+
+# --- OS / temp files ---
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
