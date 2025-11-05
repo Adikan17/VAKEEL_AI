@@ -32,7 +32,7 @@ faiss_index.*
 chroma_db/
 bm25_index.pkl
 chunk_ids.json
-processed_legal_data.json
+#processed_legal_data.json
 
 # --- Docker / cache ---
 __pycache__/
