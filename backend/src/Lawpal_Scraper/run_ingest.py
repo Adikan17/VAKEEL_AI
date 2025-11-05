@@ -22,7 +22,7 @@ DATA_SOURCES = [
 
 INDEX_PATH = "faiss_index.bin"
 META_PATH = "faiss_meta.pkl"
-OUTPUT_JSON = Path("../../ai_backend/processed_legal_data.json")
+OUTPUT_JSON = Path("ai_backend/processed_legal_data.json")
 
 def update_processed_json(new_data):
     """Append or update data inside processed_legal_data.json"""
