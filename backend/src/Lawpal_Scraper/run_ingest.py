@@ -65,14 +65,19 @@ def main():
     for url, article in all_articles:
         text = clean_text(article["text"])
         chunks = chunk_text(text)
+
         for i, chunk in enumerate(chunks):
+            chunk_id = f"chunk_{len(all_chunks)+1}"
             metadatas.append({
-                "source": url,
-                "title": article["title"],
-                "chunk_id": i,
+                "chunk_id": chunk_id,
+                "source_document": f"{article['title']}.json",
+                "document_type": article.get("type", "unknown"),
+                "section_id": f"section {i+1}",
+                "chunk_text": chunk,
                 "content_hash": content_hash(chunk),
             })
             all_chunks.append(chunk)
+
 
     print(f"\nPrepared {len(all_chunks)} chunks total")
 

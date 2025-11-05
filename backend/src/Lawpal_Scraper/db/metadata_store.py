@@ -2,36 +2,37 @@ import json
 from pathlib import Path
 from datetime import datetime
 
-METADATA_FILE = Path(__file__).parent / "scraper_metadata.json"
+METADATA_FILE = Path(__file__).resolve().parent / "scraper_metadata.json"
 
 def load_metadata():
-    """Load stored metadata (URLs, timestamps, hashes)"""
+    """Load stored metadata (document title, timestamp, hash, etc.)."""
     if METADATA_FILE.exists():
         with open(METADATA_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     return {}
 
 def save_metadata(metadata):
-    """Write metadata back to file"""
+    """Save metadata dictionary to JSON file."""
     with open(METADATA_FILE, "w", encoding="utf-8") as f:
         json.dump(metadata, f, indent=2, ensure_ascii=False)
 
-def update_metadata(source_url, article_url, content_hash):
-    """Add or update metadata for a scraped article"""
+def update_metadata(doc_title, content_hash, document_type, source_url):
+    """Save/update metadata for a single document."""
     metadata = load_metadata()
     now = datetime.utcnow().isoformat()
 
-    metadata[article_url] = {
-        "source": source_url,
+    metadata[doc_title] = {
         "content_hash": content_hash,
-        "last_updated": now,
+        "document_type": document_type,
+        "source_url": source_url,
+        "last_scraped": now
     }
 
     save_metadata(metadata)
-    print(f"🗂️ Updated metadata for {article_url}")
+    print(f"🗂️ Metadata updated for '{doc_title}'")
 
-def has_changed(article_url, new_hash):
-    """Return True if content hash differs from stored one"""
+def has_changed(doc_title, new_hash):
+    """Check if document has new content (compares hash)."""
     metadata = load_metadata()
-    entry = metadata.get(article_url)
+    entry = metadata.get(doc_title)
     return not entry or entry.get("content_hash") != new_hash
